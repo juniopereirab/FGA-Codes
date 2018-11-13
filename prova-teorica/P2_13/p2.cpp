@@ -35,18 +35,3 @@ vector<int> merge(const vector<int>& a, const vector<int>& b)
 
 return z;
 }
-
-int main(){
-
-  vector<int> a = {1, 2, 4};
-  vector<int> b = {3, 5, 6};
-
-  vector<int> z;
-
-  z = merge(a, b);
-
-  for(int i = 0; i < z.size(); i++){
-    cout << z[i] << endl;
-  }
-  return 0;
-}
