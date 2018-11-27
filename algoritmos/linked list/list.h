@@ -127,6 +127,9 @@ public:
     if(!head){
       throw "Lista Vazia";
     }
+    if(pos > _size){
+      throw "Posição invalida!";
+    }
 
     if(pos == 1){
       pop_front();
