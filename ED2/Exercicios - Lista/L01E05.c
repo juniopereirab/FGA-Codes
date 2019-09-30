@@ -1,15 +1,28 @@
 #include <stdio.h>
-#define MAX 10000
+#define MAX 100000
 
-int V[MAX];
+void get_limit(int *A, int limite, int f, int soma, int i){
+  if(i >= f){return;}
+  if(A[i] >= limite && soma == 0){
+    printf("%d\n", A[i]);
+    i++;
+  }
+  if(soma >= limite){
+    printf("%d\n", A[i]);
+    i++;
+    soma = 0;
+  }
+  else{
+    soma += A[i];
+    i++;
+    get_limit(A, limite, f, soma, i);
+  }
+}
 
 int main(){
-
+  int V[MAX];
   int n;
   int i = 0;
-  int a = 0;
-  int j = 1789;
-  int soma = 0;
 
   while(scanf("%d", &n) && n){
     V[i] = n;
@@ -18,25 +31,6 @@ int main(){
   int limite;
   scanf("%d", &limite);
 
-  for(a = 0; a < i; a++){
-    if(V[a] >= limite && soma == 0){
-      V[a] *= j;
-    }
-    else{
-      soma += V[a];
-      if(soma >= limite){
-        V[a] *= j;
-        soma = 0;
-      }
-    }
-  }
-
-  for(a = i-1; a >= 0; a--){
-    if(V[a] % j == 0){
-      printf("%d ", V[a]/j);
-    }
-  }
-
-
+  get_limit(V, limite, i, 0, 0);
   return 0;
 }
