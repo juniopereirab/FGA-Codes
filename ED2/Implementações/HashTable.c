@@ -5,14 +5,14 @@
 struct hash{
   int qtd, TABLE_SIZE;
   struct aluno **itens;
-}
+};
 
 Hash* criaHash(int TABLE_SIZE){
   Hash* ha = (Hash*) malloc(sizeof(Hash));
   if(ha != NULL){
     int i;
     ha->TABLE_SIZE = TABLE_SIZE;
-    ha->itens = (struct aluno**) malloc(TABLE_SIZE * sizeof(aluno*));
+    ha->itens = (struct aluno**) malloc(TABLE_SIZE * sizeof(struct aluno*));
     if(ha->itens == NULL){
       free(ha);
       return NULL;
@@ -72,7 +72,7 @@ int insereHash_SemColisao(Hash *ha, struct aluno al){
   int chave = al.matricula;
   //int chave = valorString(al.nome);
   int pos = chaveDivisao(chave, ha->TABLE_SIZE);
-  scruct aluno* novo;
+  struct aluno* novo;
   novo = (struct aluno*) malloc(sizeof(struct aluno));
   if(novo == NULL)
     return 0;
@@ -93,6 +93,20 @@ int buscaHash_SemColisao(Hash* ha, int mat, struct aluno* al){
   return 1;
 }
 
+int sondagemLinear(int pos, int i, int TABLE_SIZE){
+  return ((pos + i) % 0x7FFFFFFF) % TABLE_SIZE;
+}
+
+int sondagemQuadratica(int pos, int i, int TABLE_SIZE){
+  pos = pos + 2*i + 5*i*i;
+  return (pos & 0x7FFFFFFF) % TABLE_SIZE;
+}
+
+int duploHash(int H1, int chave, int i, int TABLE_SIZE){
+  int H2 = chaveDivisao(chave, TABLE_SIZE) + 1;
+  return ((H1 + i*H2) & 0x7FFFFFFF) % TABLE_SIZE;
+}
+
 int insereHash_EnderAberto(Hash* ha, struct aluno al){
   if(ha == NULL || ha->qtd == ha->TABLE_SIZE){
     return 0;
@@ -111,7 +125,7 @@ int insereHash_EnderAberto(Hash* ha, struct aluno al){
       *novo = al;
       ha->itens[newPos] = novo;
       ha->qtd++;
-      return 1
+      return 1;
     }
   }
   return 0;
