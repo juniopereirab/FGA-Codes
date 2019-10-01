@@ -18,5 +18,6 @@ int insereHash_SemColisao(Hash* ha, struct aluno al);
 int buscaHash_SemColisao(Hash* ha, int mat, struct aluno* al);
 int insereHash_EnderAberto(Hash* ha, struct aluno al);
 int buscaHash_EnderAberto(Hash* ha, int mat, struct aluno* al);
+void imprime_hash(Hash* ha);
 
 #endif

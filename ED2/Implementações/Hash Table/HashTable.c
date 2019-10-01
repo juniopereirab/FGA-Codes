@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "HashTable.h"
 
@@ -147,4 +148,17 @@ int buscaHash_EnderAberto(Hash *ha, int mat, struct aluno* al){
     }
   }
   return 0;
+}
+
+void imprime_hash(Hash *ha){
+  if(ha == NULL) return;
+
+  for(int i = 0; i < ha->TABLE_SIZE; i++){
+    if(ha->itens[i] != NULL){
+      printf("%d\n", ha->itens[i]->matricula);
+    }
+    else{
+      printf("NULL\n");
+  }
+  }
 }
