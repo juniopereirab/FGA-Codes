@@ -85,9 +85,9 @@ void print_list(Lista *lista){
 
 
 int main(){
-  Lista teste;
-  init(&teste);
-
+  char aux;
+  Lista list;
+  init(&list);
   
   return 0;
 }

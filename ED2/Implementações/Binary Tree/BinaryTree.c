@@ -14,6 +14,18 @@ Node *newNode(int data){
   return(node);
 }
 
+void freeNode(Node* node){
+  if(node == NULL);
+    return;
+
+  freeNode(node->left);
+  freeNode(node->right);
+  free(node);
+  node = NULL;
+}
+
+void freeTree()
+
 int main(){
   Node *root = newNode(1);
   root->left = newNode(2);
