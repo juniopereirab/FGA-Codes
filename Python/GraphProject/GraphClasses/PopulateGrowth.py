@@ -14,10 +14,11 @@ for i in range(len(dados)):
         y.append(int(linha[1]))
 
 
-plt.bar(x, y, color='#e4e4e4')
-plt.plot(x, y, linestyle='--', color='k')
-plt.scatter(x, y, color='')
+plt.barh(x, y, color='#990000')
+#plt.plot(x, y, linestyle='--', color='k')
+#plt.scatter(x, y, color='')
 plt.title("Crescimento da Populacao Brasileira 1980 - 2016")
 plt.xlabel("Ano")
 plt.ylabel("Populacao x 100.000.000")
-plt.savefig("PopulationGrowth.png", dpi=300)
+plt.show()
+#plt.savefig("PopulationGrowth.png", dpi=300)

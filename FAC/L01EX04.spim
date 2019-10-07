@@ -1,0 +1,97 @@
+.text
+main:
+
+  li $v0, 5
+  syscall
+  move $s0, $v0
+
+  li $t0, 1
+  li $t1, 35
+  li $t2, 36
+  li $t3, 60
+  li $t4, 61
+  li $t5, 85
+  li $t6, 86
+  li $t7, 100
+
+
+  bne $s0, $zero, D
+  j imprimeE
+D:
+  beq $s0, $t0, imprimeD
+  slt $s1, $t0, $s0
+  slt $s2, $s0, $t1
+  beq $s0, $t1, imprimeD
+  beq $s1, $s2, imprimeD
+  j C
+
+C:
+  beq $s0, $t2, imprimeC
+  slt $s1, $t2, $s0
+  slt $s2, $s0, $t3
+  beq $s0, $t3, imprimeC
+  beq $s1, $s2, imprimeC
+  j B
+
+B:
+  beq $s0, $t4, imprimeB
+  slt $s1, $t4, $s0
+  slt $s2, $s0, $t5
+  beq $s0, $t5, imprimeB
+  beq $s1, $s2, imprimeB
+  j A
+
+A:
+  beq $s0, $t6, imprimeA
+  slt $s1, $t6, $s0
+  slt $s2, $s0, $t7
+  beq $s0, $t7, imprimeA
+  beq $s1, $s2, imprimeA
+
+imprimeE:
+
+  li $v0, 4
+  la $a0, sE
+  syscall
+  j exit
+
+imprimeD:
+
+  li $v0, 4
+  la $a0, sD
+  syscall
+  j exit
+
+imprimeC:
+
+  li $v0, 4
+  la $a0, sC
+  syscall
+  j exit
+
+imprimeB:
+
+  li $v0, 4
+  la $a0, sB
+  syscall
+  j exit
+
+imprimeA:
+
+  li $v0, 4
+  la $a0, sA
+  syscall
+  j exit
+
+exit:
+
+  li $v0, 10
+  syscall
+
+.data
+
+sA: .asciiz "A\n"
+sB: .asciiz "B\n"
+sC: .asciiz "C\n"
+sD: .asciiz "D\n"
+sE: .asciiz "E\n"

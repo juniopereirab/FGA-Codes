@@ -1,0 +1,65 @@
+.text
+
+main:
+
+  li $v0, 5
+  syscall
+  move $s0, $v0
+  add $s1, $zero, $zero
+
+  j leitura
+
+leitura:
+  beq $s0, $zero, exit
+
+  li $v0, 12
+  syscall
+  move $t0, $v0
+  lbu $t1, ($t0)
+  beq $t1, 32, leitura
+  addi $t1, $t1, -48
+  add $s1, $s1, $t1      # s+=t
+  addi $s0, $s0, -1      # s--
+
+  bne $s0, $zero, leitura
+  j exit
+
+exit:
+  li $v0, 5
+  syscall
+  move $s2, $v0
+
+  beq $s1, $s2, acertou
+  j errou
+
+acertou:
+
+  li $v0, 4
+  la $a0, acc
+  syscall
+
+  li $v0, 4
+  la $a0, endl
+  syscall
+
+  li $v0, 10
+  syscall
+
+errou:
+
+li $v0, 4
+la $a0, err
+syscall
+
+li $v0, 4
+la $a0, endl
+syscall
+
+li $v0, 10
+syscall
+
+.data
+input: .space 30
+acc: .asciiz "Acertou"
+err: .asciiz "Errou"
+endl: .asciiz "\n"
