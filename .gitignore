@@ -34,3 +34,8 @@
 *.out
 *.app
 *prog
+*.sqlite3
+*node_modules/
+*package-lock.json
+*dist/
+*webpack-stats.json

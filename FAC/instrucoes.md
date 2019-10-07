@@ -88,6 +88,18 @@ slt $t0, $t1, $t2
 ```
 Realiza a comparação entre *$t1* e *$t2*, se *$t1* < *$t2* então o valor 1 será atribuido a *$t0*, e o valor 0 será atribuido, caso o contrário.
 
+- li -> load int
+```
+li $v0, 5
+```
+Carrega o registrador *$v0* com uma constante
+
+- la -> load address
+```
+la $a0, label
+```
+Carrega o registrador *$a0* com um endereço de label
+
 
 ## Funções
 
@@ -102,7 +114,6 @@ O procedimento que faz a chamada da função é denominado **caller** e a funç�
 jal label
 ```
 Realiza o desvio do fluxo da execução ao endereço (label) dado e salva o endereço da próxima instrução no registrador *$ra*.
-
 -> jr -> jump to register
 ```
 jr $ra

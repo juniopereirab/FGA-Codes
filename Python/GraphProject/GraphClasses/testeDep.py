@@ -7,8 +7,6 @@ del dados[0]
 for i in range(len(dados)):
     dados[i] = dados[i].split(";")
 
-print(dados)
-
 id_vot = {}
 voto = {}
 orient_part = {}

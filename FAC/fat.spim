@@ -1,0 +1,28 @@
+.text
+
+main:
+  addi $a0, $zero, 5
+  jal fat
+
+fat:
+  addi $sp, $sp, -8
+  sw $a0, 0($sp)
+  sw $ra, 4($sp)
+  addi $t0, $zero, 1
+  beq $a0, $zero, return
+  beq $a0, $t0, return
+  addi $a0, $a0, -1
+  jal fat
+  lw $ra, 4($sp)
+  lw $a0, 0($sp)
+  addi $sp, $sp, 8
+  mul $v0, $a0, $v0
+  jr $ra
+
+return:
+  addi $v0, $zero, 1
+  jr $ra
+
+  li $v0, 1
+  syscall
+  
