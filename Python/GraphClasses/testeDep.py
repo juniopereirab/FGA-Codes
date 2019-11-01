@@ -53,7 +53,8 @@ c.append(orient_part)
 d.append(orient_gov)
 
 
-category_names = ['Sim', 'Abstenção', 'Ausente', 'Obstrução', 'Não']
+category_names = ['Não', 'Abstenção', 'Ausente', 'Obstrução', 'Sim']
+category_names2 = ['Não', 'Obstrução', 'Liberado', 'Sim']
 
 results = {}
 
@@ -64,8 +65,32 @@ for i in a:
 for k in a:
     for l in k.keys():
         for i in b:
-            for j in ['Sim', 'Abstenção', 'Ausente', 'Obstrução', 'Não']:
+            for j in ['Não', 'Abstenção', 'Ausente', 'Obstrução', 'Sim']:
                 results[l].append(i[j])
+
+results1 = {}
+
+for i in a:
+    for j in i.keys():
+        results1[j] = []
+
+for k in a:
+    for l in k.keys():
+        for i in c:
+            for j in ['Não', 'Obstrução', 'Liberado', 'Sim']:
+                results1[l].append(i[j])
+
+results2 = {}
+
+for i in a:
+    for j in i.keys():
+        results2[j] = []
+
+for k in a:
+    for l in k.keys():
+        for i in d:
+            for j in ['Não', 'Obstrução', 'Liberado', 'Não']:
+                results2[l].append(i[j])
 
 print(results)
 
@@ -98,3 +123,5 @@ def survey(results, category_names):
 
 
 survey(results, category_names)
+survey(results1, category_names2)
+survey(results2, category_names2)

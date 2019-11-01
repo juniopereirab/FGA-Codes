@@ -1,6 +1,0 @@
-num_votacao;timestamp;sigla_tipo;numero;ano;obj_votacao;url_inteiro_teor;id_deputado;nome;sigla_partido;uf;voto;orient_part;orient_gov
-1;2019-08-20T17:25:00;MPV;110;2016;Previdencia;url.com.br;1;Deputado;PT;DF;Sim;Obstrução;Sim
-1;2019-08-20T17:25:00;PEC;110;2016;Previdencia;url.com.br;1;Deputado;PT;DF;Não;Não;Sim
-1;2019-08-20T17:25:00;PL;110;2016;Previdencia;url.com.br;1;Deputado;PT;DF;Obstrução;Não;Sim
-1;2019-08-20T17:25:00;PEC;110;2016;Previdencia;url.com.br;1;Deputado;PT;DF;Ausente;Não;Sim
-1;2019-08-20T17:25:00;PEC;110;2016;Previdencia;url.com.br;1;Deputado;PT;DF;Sim;Não;Sim

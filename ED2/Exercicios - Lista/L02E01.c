@@ -20,12 +20,13 @@ void quicksort(int *V, int l, int r){
       i++;
       j--;
     }
+    aux++;
   }
   if(j > l){
-    quicksort(V, l, j);
+    quicksort(V, l, j, aux, seeds);
   }
   if(i < r){
-    quicksort(V, i, r);
+    quicksort(V, i, r, aux, seeds);
   }
 }
 
@@ -38,7 +39,7 @@ int main(){
     V[tam] = aux;
     tam++;
   }
-  quicksort(V, 0, tam-1);
+  quicksort(V, 0, tam-1, 0, 5);
 
   for(int a = 0; a < tam; a++){
     if(a+1 == tam){

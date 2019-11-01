@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void mergesort(long int *v,long int n);
-void sort(long int *v,long int *c,long int i,long int f);
 void merge(long int *v,long int *c,long int i,long int m,long int f);
+void sort(long int *v,long int *c,long int i,long int f);
+void mergesort(long int *v,long int n);
+
+
 
 int main (void) {
   int aux;
