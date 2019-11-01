@@ -1,57 +1,29 @@
-#include <bits/stdc=++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 int main(){
     int d, h, m, s, d2, h2, m2, s2;
 
-    int dia, hora, min, seg;
+    int inicio, fim, duracao;
 
-    cin >> d;
-    cin >> h >> m >> s;
-    cin >> d2;
-    cin >> h2 >> m2 >> s2;
+    char buffer[10];
 
-    if(d == d2){
-        dia = 0;
-    }
-    else{
-        dia = d2 - d;
-    }
-    if(h == h2){
-        hora = 0;
-    }
-    else if(h2 < h){
-        int aux = h - h2;
-        hora = 24 - aux;
-    }
-    else{
-        hora = h2 - h;
-    }
-    if(m == m2){
-        min = 0;
-    }
-    else if(m2 > m){
-        min = m2 - m;
-    }
-    else{
-        int aux = m - m2;
-        min = 60 - aux;
-    }
-    if(s == s2){
-        seg = 0;
-    }
-    else if(s2 > s){
-        seg = s2 - s;
-    }
-    else{
-        int aux = s - s2;
-        seg = 60 - aux;
-    }
+    scanf("%s%d", buffer, &d);
+    scanf("%d%s%d%s%d", &h, buffer, &m, buffer, &s);
+    scanf("%s%d", buffer, &d2);
+    scanf("%d%s%d%s%d", &h2, buffer, &m2, buffer, &s2);
 
-    cout << hora << " Hora(s)" << endl;
-    cout << 
-    
+    inicio = (d * 86400) + (h * 3600) + (m * 60) + s;
+    fim = (d2 * 86400) + (h2 * 3600) + (m2 * 60) + s2;
+
+    duracao = fim - inicio;
+
+    cout << duracao/86400 << " dia(s)" << endl;
+    cout << (duracao%86400)/3600 << " hora(s)" << endl;
+    cout << ((duracao%86400)%3600)/60 << " minuto(s)" << endl;
+    cout << ((duracao%86400)%3600)%60 << " segundo(s)" << endl;
+
 
     return 0;
 }
