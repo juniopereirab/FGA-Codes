@@ -1,0 +1,174 @@
+.data
+	invalid_msg: .asciiz "Entradas invalidas.\n"
+	warn1:	.asciiz "Nao foi possivel calcular sqrt("
+	warn2:	.asciiz ").\n"
+	msg1: .asciiz "A raiz quadrada de "
+	msg2: .asciiz " eh "
+	msg3: .asciiz ", calculada em "
+	msg4: .asciiz " iteracoes.\n"
+
+.text
+main:
+	# Leitura do X
+	li $v0, 5				
+	syscall	
+	move $s0, $v0
+				
+	# Leitura do E
+	li $v0, 5				
+	syscall	
+	move $s1, $v0
+	
+	# Verificando se o X eh maior que 1, e se o E esta dentro do intervalo aceitavel 1 <= E <= 16
+	addi $t0, $zero, 1		
+	bgt  $s0, $t0, valid_E
+	j invalid
+	
+valid_E:			
+	addi $t0, $zero, 17
+	slt $t1, $zero, $s1	 
+	slt $t2, $s1, $t0
+	beq $t1, $t2, bissect
+	j invalid
+
+
+bissect:
+	addi $a0, $zero, 2		
+	jal find_a_b
+	add $a0, $v0, $zero			
+	add $a1, $v1, $zero	
+	
+	jal sqrt
+				
+	jal right_exit				
+	li $v0, 10				
+	syscall	
+	
+									
+find_a_b:
+	multu $a0,$a0				
+	mflo $t0			
+	bgt $t0, $s0, pass			
+	beq $t0, $s0, equal			
+	addi $a0, $a0, 1			
+	j find_a_b		
+	
+pass:	
+	add $v1, $a0, $zero			
+	addi $a0, $a0, -1			
+	add $v0, $a0, $zero			
+	jr $ra				
+	
+equal:
+	addi $a0, $a0, -1			
+	add $v0, $a0, $zero			
+	addi $a0, $a0, 2			
+	add $v1, $a0, $zero			
+	jr $ra
+	
+sqrt:
+	mtc1.d $s0, $f8
+	cvt.d.w $f8, $f8			
+	li $t0, 1				
+	li $t1, 10					
+	mtc1.d $t0, $f2
+	cvt.d.w $f2, $f2				
+	mtc1.d $t1, $f10
+	cvt.d.w $f10, $f10					
+	
+warning_loop:
+	addi $s1, $s1, -1				
+	div.d $f2, $f2, $f10			
+	bne $s1, $0, warning_loop		
+	mtc1.d $a0, $f4
+	cvt.d.w $f4, $f4			
+	mtc1.d $a1, $f12
+	cvt.d.w $f12, $f12			
+	sub.d $f10,$f12, $f4			
+	abs.d $f10, $f10			
+	c.le.d $f10, $f2			
+	bc1t exit_sqrt			
+	div.d $f12, $f8, $f4			
+	sub.d $f10,$f12, $f4			
+	abs.d $f10, $f10			
+	c.le.d $f10, $f2			
+	bc1t exit_sqrt			
+	li $t1, 2				
+	mtc1.d 	$t1, $f6
+	cvt.d.w $f6, $f6			
+	li $t1, 1				
+	li $t0, 101
+	
+	
+loop_sqrt:
+	addi $t1, $t1, 1			
+	beq $t1, $t0, wrong_exit
+	add.d $f4, $f4, $f12			
+	div.d $f4, $f4, $f6			
+	div.d $f12, $f8, $f4			
+	sub.d $f10, $f4, $f12			
+	abs.d $f10, $f10			
+	c.le.d $f10, $f2			
+	bc1t exit_sqrt			
+	j loop_sqrt			
+	 
+	 
+exit_sqrt:
+	move $s3, $t1				
+	jr $ra
+
+# Prints
+invalid:
+	# Caso as entradas tenham sido invalidas	
+	li $v0, 4				
+	la $a0, invalid_msg			
+	syscall					
+	li $v0, 10				
+	syscall				
+	
+wrong_exit:
+    	# Caso nao tenha sido possivel calcular a raiz quadrada
+	li $v0, 4				
+	la $a0, warn1			
+	syscall							
+	li $v0, 1				
+	move $a0, $s0			
+	syscall					
+	li $v0, 4				
+	la $a0, warn2		
+	syscall					
+	li $v0, 10				
+	syscall				
+
+right_exit: 
+    	# Caso tenha sido possivel calcular a raiz corretamente
+	li $v0, 4				
+	la $a0, msg1			
+	syscall					
+		
+	li $v0, 1						
+	move $a0, $s0				
+	syscall					
+	
+	li $v0, 4				
+	la $a0, msg2			
+	syscall					
+	
+	li $v0, 3	
+	mov.d $f6,$f12
+	syscall
+	
+	li $v0, 4				
+	la $a0, msg3			
+	syscall					
+	li $v0, 1						
+	move $a0, $s3			
+	syscall					
+	li $v0, 4				
+	la $a0, msg4			
+	syscall					
+	li $v0, 10				
+	syscall				
+
+
+					
